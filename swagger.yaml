@@ -1,0 +1,65 @@
+openapi: 3.0.0
+info:
+  title: Darcy
+  description: Ui for kafka protobuf messages
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080/api
+paths:
+  /proto:
+    post:
+      summary: post proto file
+      requestBody:
+        content:
+          text/proto:
+            schema:
+              type: string
+              format: binary
+
+      responses:
+        204:
+          description: Ok
+  /messages:
+    get:
+      summary: get all messages type
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    $ref: '#/components/schemas/Message'
+                      
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        name:
+          type: string
+        fields:
+          type: array
+          items: 
+            $ref: '#/components/schemas/Field'
+    Scalar:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/Type'
+          
+    Type:
+      type: string
+      enum: ["string", "integer", "boolean", "float", "repeated"]
+        
+    Field:
+      oneOf:
+        - $ref: '#/components/schemas/Message'
+        - $ref: '#/components/schemas/Scalar'
+        
+        
+                        
