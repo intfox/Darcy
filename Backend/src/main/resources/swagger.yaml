@@ -1,0 +1,40 @@
+  swagger: "2.0"
+  info:
+    version: 1.0.0
+    title: Darcy
+    description: Ui for kafka protobuf messages
+  host: petstore.swagger.io
+  basePath: /api
+  schemes:
+    - http
+  paths:
+    /proto:
+      post:
+        produces:
+          - text/plain
+        description: post proto file
+        operationId: postProto
+        parameters:
+          - name: protoFile
+            in: body
+            required: true
+            type: file
+            description: proto file
+        responses:
+          204:
+            description: Ok
+
+  definitions:
+    Pet:
+      type: "object"
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        tag:
+          type: string
