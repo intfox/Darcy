@@ -2,9 +2,11 @@ version := "0.1"
 
 scalaVersion := "2.13.8"
 
-
 lazy val darcy = (project in file("."))
+  .enablePlugins(JavaAppPackaging, DockerPlugin)
   .settings(
+    dockerBaseImage := "openjdk:8-jre-slim",
+    dockerExposedPorts := Seq(8080),
     name := "Darcy",
     libraryDependencies ++= Seq(
       "ch.qos.logback" % "logback-classic" % "1.2.7",

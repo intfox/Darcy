@@ -17,7 +17,7 @@ object Main extends IOApp {
   override def run(args: List[String]): IO[ExitCode] = for {
     _ <- BlazeServerBuilder[IO](global)
       .withHttpApp(routes)
-      .bindHttp(8080, "localhost")
+      .bindHttp(8080, "0.0.0.0")
       .serve
       .compile
       .drain
